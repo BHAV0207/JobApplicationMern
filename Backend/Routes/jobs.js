@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Job = require("../Models/jobModel");
 
-router.get("/", async (req, res) => {
+router.get("/user", async (req, res) => {
   try {
     const jobs = await Job.find().sort({ postedDate: -1 }); // Sort jobs by most recent
     res.json(jobs);
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/admin/post", async (req, res) => {
   try {
     const { title, company, location, postedDate, employmentType, description, url } = req.body;
 

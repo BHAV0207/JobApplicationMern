@@ -5,27 +5,29 @@ const axios = require("axios");
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
-  // Navigate to the Dice website
   const diceURL =
     "https://www.dice.com/jobs?q=Software&radius=30&radiusUnit=mi&page=1&pageSize=20&filters.postedDate=ONE&filters.workplaceTypes=Remote&filters.employmentType=CONTRACTS&currencyCode=USD&language=en";
-  await page.goto(diceURL, { waitUntil: "networkidle2" });
+  await page.goto(diceURL, { waitUntil: "domcontentloaded" });
 
-  // Extract job data
+  // Wait for job cards to load
+  await page.waitForSelector(".card-title-link", { timeout: 10000 });
+
+  // Scrape job data
   const jobs = await page.evaluate(() => {
-    const jobCards = Array.from(document.querySelectorAll(".job-card"));
+    const jobCards = Array.from(document.querySelectorAll(".card-content"));
 
     return jobCards.map((job) => ({
       title:
         job.querySelector(".card-title-link")?.innerText || "Unknown Title",
       company:
         job.querySelector(".company-name")?.innerText || "Unknown Company",
-      location: job.querySelector(".location")?.innerText || "Unknown Location",
+      location: job.querySelector(".job-location")?.innerText || "Unknown Location",
       postedDate:
-        job.querySelector(".date-posted")?.innerText || "Unknown Date",
+        job.querySelector(".posted")?.innerText || "Unknown Date",
       employmentType:
         job.querySelector(".employment-type")?.innerText || "Unknown Type",
       description:
-        job.querySelector(".job-description")?.innerText ||
+        job.querySelector(".description")?.innerText ||
         "No description available",
       url: job.querySelector(".card-title-link")?.href || "No URL available",
     }));
@@ -33,10 +35,8 @@ const axios = require("axios");
 
   console.log(`Scraped ${jobs.length} jobs.`);
 
-  // Send each job to the backend
   for (const job of jobs) {
     try {
-      // Convert postedDate to a valid Date object if available
       const parsedDate = new Date(job.postedDate); // Convert string to Date
       if (isNaN(parsedDate)) {
         console.warn(

@@ -18,6 +18,9 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 const jobRoutes = require('./Routes/jobs');
 app.use('/api/jobs' , jobRoutes);
 
+const userRoutes = require('./Routes/user');
+app.use('/api/auth' , userRoutes);
+
 
 app.listen(3000, () => {
   console.log("server is running on port 3000");
