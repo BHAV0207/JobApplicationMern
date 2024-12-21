@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const axios = require("axios");
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true });   
   const page = await browser.newPage();
 
   const diceURL =
