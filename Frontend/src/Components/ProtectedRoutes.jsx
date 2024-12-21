@@ -1,19 +1,21 @@
 import React from 'react'
-import {jwtdecode} from 'jwt-decode'
+import {jwtDecode} from "jwt-decode";
 import { Navigate } from 'react-router-dom'
 
 function ProtectedRoutes({role , element}) {
 
   const token = localStorage.getItem('token');
   if(!token) return <Navigate to={'/'} replace />
-
+  console.log(token);
   try{
-    const decode = jwtdecode('token');
+    // console.log("trying")
+    const decode = jwtDecode(token);
     if(decode.role != role) return <Navigate to={'/'} replace />
 
     return element
   }
   catch(err){
+    // console.log("catching")
     return <Navigate to={'/'} replace />
   }
 }

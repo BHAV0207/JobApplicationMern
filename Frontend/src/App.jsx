@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<LoginPage></LoginPage>} />
             <Route path="/register" element={<RegisterPage></RegisterPage>}></Route>
             <Route path="/admin" element={<ProtectedRoutes role='admin' element={<AdminPage></AdminPage>}/>} /> 
-            <Route path="/user" element={<ProtectedRoutes role='user' element={<AdminPage></AdminPage>}/>} />
+            <Route path="/user" element={<ProtectedRoutes role='user' element={<UserPage></UserPage>}/>} />
             <Route path="*" element={<Navigate to='/' replace/>}/>
           </Routes>
         </main>

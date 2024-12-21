@@ -82,7 +82,7 @@ router.get("/admin", middleware, (req, res) => {
 router.get("/user" , middleware , (req,res) => {
   if(req.user.role !== "user")  return res.status(403).json({ message: "Access denied" });
 
-  res.json({message : "welcome to th user page"})
+  res.json({message : "welcome to the user page"})
 })
 
 module.exports = router;

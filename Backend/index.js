@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 });
 
 const jobRoutes = require('./Routes/jobs');
-app.use('/api/jobs' , jobRoutes);
+app.use('/api/auth' , jobRoutes);
 
 const userRoutes = require('./Routes/user');
 app.use('/api/auth' , userRoutes);
