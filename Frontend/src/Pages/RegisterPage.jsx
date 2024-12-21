@@ -6,19 +6,20 @@ function RegisterPage() {
   const navigate = useNavigate();
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  let [user, setUser] = useState("user");
+  let [role, setRole] = useState("user");
+  // console.log(role)
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // console.log(role);
     try {
       const res = await axios.post("http://localhost:3000/api/auth/register", {
         email,
         password,
-        user,
+        role,
       });
       setSuccess("Registration successful. You can now log in.");
       setError("");
@@ -82,8 +83,8 @@ function RegisterPage() {
           </label>
           <select
             name="role"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="user">User</option>

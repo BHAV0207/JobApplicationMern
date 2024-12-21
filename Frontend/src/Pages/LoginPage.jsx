@@ -20,7 +20,7 @@ function LoginPage() {
       });
       // console.log(res.data);
       const { token, role } = res.data;
-
+      console.log(role);
       localStorage.setItem("token", token);
       if (role == "admin") navigate("/admin");
       else if (role == "user") navigate("/user");

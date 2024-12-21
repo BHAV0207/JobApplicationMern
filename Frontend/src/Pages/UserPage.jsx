@@ -29,12 +29,6 @@ function UserPage() {
       <main className="flex-grow container mx-auto p-6">
         <JobList />
       </main>
-
-      <footer className="bg-gray-800 text-white py-4">
-        <div className="text-center text-sm">
-          &copy; {new Date().getFullYear()} JobFinder. All rights reserved.
-        </div>
-      </footer>
     </div>
   );
 }
