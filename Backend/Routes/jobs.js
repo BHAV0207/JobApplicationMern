@@ -4,7 +4,7 @@ const Job = require("../Models/jobModel");
 
 router.get("/user/jobs", async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ postedDate: -1 }); // Sort jobs by most recent
+    const jobs = await Job.find().sort({ postedDate: -1 }); 
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch jobs" });
